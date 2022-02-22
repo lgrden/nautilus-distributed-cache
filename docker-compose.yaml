@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  nautilus-simple-ms-1:
+    image: nautilus-simple-microservice:1.0.0
+    container_name: nautilus-simple-ms-1
+    ports:
+      - 9090:9090
+    env_file:
+      - docker.env
+    environment:
+      - SERVER_PORT=9090
+
+  nautilus-simple-ms-2:
+    image: nautilus-simple-microservice:1.0.0
+    container_name: nautilus-simple-ms-2
+    ports:
+      - 9091:9091
+    env_file:
+      - docker.env
+    environment:
+      - SERVER_PORT=9091
+
+  nautilus-simple-ms-3:
+    image: nautilus-simple-microservice:1.0.0
+    container_name: nautilus-simple-ms-3
+    ports:
+      - 9092:9092
+    env_file:
+      - docker.env
+    environment:
+      - SERVER_PORT=9092

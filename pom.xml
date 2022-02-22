@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.wegetit</groupId>
+  <artifactId>nautilus-parent</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>nautilus</name>
+
+  <properties>
+    <java.version>11</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <skipNpmBuild>false</skipNpmBuild>
+  </properties>
+
+  <modules>
+    <module>commons-microservice</module>
+    <module>simple-microservice</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+          <groupId>io.wegetit</groupId>
+          <artifactId>nautilus-commons-microservice</artifactId>
+          <version>${project.version}</version>
+          <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.3</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>2.6.3</version>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
