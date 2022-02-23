@@ -39,9 +39,9 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.fasterxml.jackson.dataformat</groupId>
-        <artifactId>jackson-dataformat-csv</artifactId>
-        <version>2.5.3</version>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-csv</artifactId>
+        <version>1.4</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

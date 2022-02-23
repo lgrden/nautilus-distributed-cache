@@ -27,7 +27,8 @@ public class UserDistributedCacheService extends DistributedCacheService<Integer
 
     @Override
     protected List<User> findAll() {
-        return CSVUtils.loadFile(User.class, "users.csv");
+        return CSVUtils.loadFile("users.csv",
+            c -> User.builder().id(Integer.valueOf(c.get(0))).username(c.get(1)).build());
     }
 
     @Override

@@ -1,13 +1,15 @@
 package io.wegetit.nautilus.commons.cache.user;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class User {
+@Builder
+public class User implements Serializable {
     private Integer id;
     private String username;
 }

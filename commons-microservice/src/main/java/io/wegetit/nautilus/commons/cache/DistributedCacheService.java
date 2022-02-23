@@ -22,7 +22,7 @@ public abstract class DistributedCacheService<T, K> {
     @PostConstruct
     protected void initialize() {
         if (!isInitOnStartup()) {
-            log.info("{} service. Init cache {} is disabled.", getClass().getSimpleName(), getCacheName());
+            log.info("Init cache {} is disabled.", getClass().getSimpleName(), getCacheName());
             return;
         }
         if (hazelcastInstance.getConfig().getMapConfigOrNull(getCacheName()) == null) {
@@ -32,7 +32,7 @@ public abstract class DistributedCacheService<T, K> {
         map.clear();
         List<K> data = findAll();
         map.putAll(data.stream().collect(Collectors.toMap(this::key, Function.identity())));
-        log.info("{} service. Cache {} reloaded with {} elements.", getClass().getSimpleName(), getCacheName(), data.size());
+        log.info("Cache {} reloaded with {} elements.", getClass().getSimpleName(), getCacheName(), data.size());
     }
 
     protected abstract List<K> findAll();
