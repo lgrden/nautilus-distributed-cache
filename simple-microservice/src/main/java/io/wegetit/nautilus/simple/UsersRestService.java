@@ -39,6 +39,21 @@ public class UsersRestService {
             .id(id).username(RandomStringUtils.randomAlphabetic(10)).build());
     }
 
+    @GetMapping("/{id}/update")
+    public User update(@PathVariable Integer id) {
+        User user = getById(id);
+        if (user == null) {
+            return null;
+        }
+        user.setUsername(RandomStringUtils.randomAlphabetic(10));
+        return userDistributedCacheService.save(user);
+    }
+
+    @GetMapping("/{id}/delete")
+    public void delete(@PathVariable Integer id) {
+        userDistributedCacheService.delete(id);
+    }
+
     private Integer nextId() {
         return ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
     }

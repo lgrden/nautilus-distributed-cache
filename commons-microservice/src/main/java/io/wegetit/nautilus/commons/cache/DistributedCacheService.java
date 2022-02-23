@@ -64,6 +64,10 @@ public abstract class DistributedCacheService<T extends Comparable<T>, K> implem
         return getById(key(k));
     }
 
+    public void delete(T t) {
+        hazelcastInstance.getMap(getCacheName()).remove(t);
+    }
+
     @Override
     public void entryAdded(EntryEvent<T, K> entryEvent) {
         log.info("Cache {} with key {} added.", getCacheName(), entryEvent.getKey());
