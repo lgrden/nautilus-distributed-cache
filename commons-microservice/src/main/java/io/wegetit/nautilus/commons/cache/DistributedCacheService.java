@@ -34,7 +34,7 @@ public abstract class DistributedCacheService<T, K> implements EntryListener<T, 
         Map<T, K> map = hazelcastInstance.getMap(getCacheName());
         if (isInitOnStartup()) {
             map.clear();
-            List<K> data = findAll();
+            List<K> data = readAll();
             map.putAll(data.stream().collect(Collectors.toMap(this::key, Function.identity())));
             log.info("Cache {} reloaded with {} elements.", getCacheName(), data.size());
         }
@@ -46,9 +46,22 @@ public abstract class DistributedCacheService<T, K> implements EntryListener<T, 
         hazelcastInstance.getConfig().getMapConfig(getCacheName()).setEntryListenerConfigs(Collections.emptyList());
     }
 
-    protected abstract List<K> findAll();
+    protected abstract List<K> readAll();
     protected abstract T key(K k);
 
+    public List<K> getAll() {
+        return hazelcastInstance.getMap(getCacheName()).values().stream()
+            .map(p -> (K)p).collect(Collectors.toList());
+    }
+
+    public K getById(T t) {
+        return (K)hazelcastInstance.getMap(getCacheName()).get(t);
+    }
+
+    public K save(K k) {
+        hazelcastInstance.getMap(getCacheName()).put(key(k), k);
+        return getById(key(k));
+    }
 
     @Override
     public void entryAdded(EntryEvent<T, K> entryEvent) {
