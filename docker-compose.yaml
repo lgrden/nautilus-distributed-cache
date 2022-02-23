@@ -5,11 +5,10 @@ services:
     image: nautilus-simple-microservice:1.0.0
     container_name: nautilus-simple-ms-1
     ports:
-      - 9090:9090
+      - 9090:8080
     env_file:
       - docker.env
     environment:
-      - SERVER_PORT=9090
       - CACHE_INSTANCENAME=nautilus-simple-ms-1
       - CACHE_USER_INITONSTARTUP=true
 
@@ -17,20 +16,18 @@ services:
     image: nautilus-simple-microservice:1.0.0
     container_name: nautilus-simple-ms-2
     ports:
-      - 9091:9091
+      - 9091:8080
     env_file:
       - docker.env
     environment:
-      - SERVER_PORT=9091
       - CACHE_INSTANCENAME=nautilus-simple-ms-2
 
   nautilus-simple-ms-3:
     image: nautilus-simple-microservice:1.0.0
     container_name: nautilus-simple-ms-3
     ports:
-      - 9092:9092
+      - 9092:8080
     env_file:
       - docker.env
     environment:
-      - SERVER_PORT=9092
       - CACHE_INSTANCENAME=nautilus-simple-ms-3
