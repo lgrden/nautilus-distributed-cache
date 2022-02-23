@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Slf4j
-public abstract class DistributedCacheService<T, K> implements EntryListener<T, K> {
+public abstract class DistributedCacheService<T extends Comparable<T>, K> implements EntryListener<T, K> {
 
     private final HazelcastInstance hazelcastInstance;
 
@@ -50,8 +51,8 @@ public abstract class DistributedCacheService<T, K> implements EntryListener<T, 
     protected abstract T key(K k);
 
     public List<K> getAll() {
-        return hazelcastInstance.getMap(getCacheName()).values().stream()
-            .map(p -> (K)p).collect(Collectors.toList());
+        Map<T, K> map = hazelcastInstance.getMap(getCacheName());
+        return map.values().stream().sorted(Comparator.comparing(this::key)).collect(Collectors.toList());
     }
 
     public K getById(T t) {
